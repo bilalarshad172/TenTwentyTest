@@ -11,6 +11,7 @@ import {
   Select,
   Input,
   InputNumber,
+  message,
 } from "antd";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -129,6 +130,7 @@ export default function WeekTimesheetPage({
             ],
     }));
     onUpdate(entry.id, next);
+    message.success("Task added successfully");
     setAddingDayIndex(null);
     form.resetFields();
   };
@@ -140,6 +142,7 @@ export default function WeekTimesheetPage({
       tasks: day.tasks.filter((task) => task.id !== taskId),
     }));
     onUpdate(entry.id, next);
+    message.success("Task deleted successfully");
   };
 
   if (!entry) {
@@ -155,15 +158,15 @@ export default function WeekTimesheetPage({
   return (
     <>
       <Card className="shadow-sm">
-        <div className="flex items-start justify-between gap-4">
-          <div>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="flex-1">
             <Title level={4} className="mb-1">
               This week's timesheet
             </Title>
             <Text type="secondary">{formatWeekRange(entry.weekStart)}</Text>
           </div>
-          <div className="min-w-[220px]">
-            <div className="flex items-center justify-end gap-2 text-sm text-gray-500">
+          <div className="w-full sm:min-w-[220px] sm:w-auto">
+            <div className="flex flex-wrap items-center justify-start gap-2 text-sm text-gray-500 sm:justify-end">
               <span>
                 {totalHours}/{TARGET_WEEK_HOURS} hrs
               </span>
@@ -184,8 +187,8 @@ export default function WeekTimesheetPage({
           {entry.days.map((day, index) => {
             const dateLabel = dayjs(day.date).format("MMM D");
             return (
-              <div key={day.date} className="flex gap-6">
-                <div className="w-20 text-sm font-semibold text-gray-700">
+              <div key={day.date} className="flex flex-col gap-3 sm:flex-row sm:gap-6">
+                <div className="w-full text-sm font-semibold text-gray-700 sm:w-20">
                   {dateLabel}
                 </div>
                 <div className="flex-1 space-y-2">
@@ -195,10 +198,12 @@ export default function WeekTimesheetPage({
                   {day.tasks.map((task) => (
                     <div
                       key={task.id}
-                      className="flex items-center justify-between rounded-md border border-gray-200 px-3 py-2"
+                      className="flex flex-col gap-2 rounded-md border border-gray-200 px-3 py-2 sm:flex-row sm:items-center sm:justify-between"
                     >
-                      <div className="text-sm text-gray-700">{task.name}</div>
-                      <div className="flex items-center gap-3 text-xs text-gray-500">
+                      <div className="text-sm text-gray-700 break-words">
+                        {task.name}
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 sm:gap-3">
                         <span>{task.hours} hrs</span>
                         {task.project && <Tag color="blue">{task.project}</Tag>}
                         <Button
@@ -245,8 +250,8 @@ export default function WeekTimesheetPage({
         layout="vertical"
         className={addingDayIndex !== null ? "block" : "hidden"}
       >
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-4xl rounded-lg bg-white p-6 shadow-lg max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-4xl rounded-lg bg-white p-4 shadow-lg max-h-[90vh] overflow-y-auto sm:p-6">
             <div className="mb-4 flex items-center justify-between">
               <Title level={5} className="mb-0">
                 Add New Entry
@@ -305,9 +310,7 @@ export default function WeekTimesheetPage({
                 />
               </div>
             </Form.Item>
-            <Text type="secondary" className="text-xs">
-              A note for extra info
-            </Text>
+            
             <div className="mt-6 flex gap-3">
               <Button
                 type="primary"

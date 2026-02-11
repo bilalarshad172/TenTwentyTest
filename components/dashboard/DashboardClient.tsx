@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Card, Layout, Typography, Alert, DatePicker, Select } from "antd";
+import {
+  Card,
+  Layout,
+  Typography,
+  Alert,
+  DatePicker,
+  Select,
+  Dropdown,
+  Button,
+  message,
+} from "antd";
 import TimesheetTable from "@/components/timesheets/TimeSheetTable";
 import { useTimesheetsStore } from "@/store/timesheets-store";
 import type { TimesheetEntry, TimesheetStatus } from "@/lib/types";
@@ -13,6 +23,7 @@ import {
   getWeekEnd,
 } from "@/lib/timesheet-utils";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -24,6 +35,7 @@ export default function DashboardClient() {
     null
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [pageSize, setPageSize] = useState(5);
   const router = useRouter();
 
   useEffect(() => {
@@ -92,9 +104,26 @@ export default function DashboardClient() {
             </h2>
           </div>
 
-          <Text type="secondary">
-            John Doe
-          </Text>
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: "logout",
+                  label: "Logout",
+                  onClick: async () => {
+                    message.success("Logged out successfully");
+                    await signOut({ callbackUrl: "/login" });
+                  },
+                },
+              ],
+            }}
+            placement="bottomRight"
+            trigger={["click"]}
+          >
+            <Button type="text" className="text-gray-500">
+              John Doe
+            </Button>
+          </Dropdown>
 
         </div>
       </Header>
@@ -111,7 +140,7 @@ export default function DashboardClient() {
             </Title>
 
             {/* Filters row */}
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <DatePicker.RangePicker
                 value={dateRange}
                 onChange={(value) =>
@@ -146,6 +175,9 @@ export default function DashboardClient() {
             loading={loading}
             rows={rows}
             selectedId={selectedId}
+            pageSize={pageSize}
+            sortBy="weekNumber"
+            sortOrder="asc"
             onSelect={(row) => {
               setSelectedId(row.id);
               router.push(`/dashboard/${row.id}`);
@@ -155,6 +187,18 @@ export default function DashboardClient() {
               router.push(`/dashboard/${row.id}`);
             }}
           />
+          <div className="mt-4 flex items-center justify-between">
+            <Select
+              value={pageSize}
+              onChange={(value) => setPageSize(value)}
+              style={{ width: 140 }}
+              options={[
+                { value: 5, label: "5 per page" },
+                { value: 10, label: "10 per page" },
+                { value: 15, label: "15 per page" },
+              ]}
+            />
+          </div>
           </Card>
           <Card className="mt-6 shadow-sm" style={{marginTop:"20px"}}>
             

@@ -8,10 +8,12 @@
         "date": "2026-01-05",
         "tasks": [
           {
-            "id": "t1",
-            "name": "Homepage Development",
-            "hours": 8,
-            "project": "Project Name"
+            "id": "08ad8ba6-b508-4fdf-b69a-cad5b20de0ae",
+            "name": "Test task added",
+            "description": "Test task added",
+            "hours": 4,
+            "project": "Internal",
+            "workType": "Feature"
           }
         ]
       },
@@ -23,6 +25,14 @@
             "name": "Homepage Development",
             "hours": 8,
             "project": "Project Name"
+          },
+          {
+            "id": "78e57621-0ac3-4ba6-95bd-9d3fe51cc85c",
+            "name": "Home page 2",
+            "description": "Home page 2",
+            "hours": 1,
+            "project": "Client Work",
+            "workType": "Design"
           }
         ]
       },
@@ -155,6 +165,14 @@
             "name": "Homepage Development",
             "hours": 4,
             "project": "Project Name"
+          },
+          {
+            "id": "8ed1489f-76cb-4698-b4c6-d11af692d027",
+            "name": "Finalizing the design",
+            "description": "Finalizing the design",
+            "hours": 10,
+            "project": "Client Work",
+            "workType": "Design"
           }
         ]
       },

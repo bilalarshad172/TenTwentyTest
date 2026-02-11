@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Layout, Typography, Alert, Button } from "antd";
+import { Layout, Typography, Alert, Button, Dropdown, message } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useTimesheetsStore } from "@/store/timesheets-store";
 import WeekTimesheetPage from "@/components/timesheets/WeekTimesheetPage";
 import type { TimesheetEntry } from "@/lib/types";
+import { signOut } from "next-auth/react";
 
 const { Header, Content } = Layout;
 const { Title, Text } = Typography;
@@ -73,7 +74,26 @@ export default function TimesheetWeekPage() {
             </Title>
             <h2 className="text-lg font-semibold mb-0">Timesheets</h2>
           </div>
-          <Text type="secondary">John Doe</Text>
+          <Dropdown
+            menu={{
+              items: [
+                {
+                  key: "logout",
+                  label: "Logout",
+                  onClick: async () => {
+                    message.success("Logged out successfully");
+                    await signOut({ callbackUrl: "/login" });
+                  },
+                },
+              ],
+            }}
+            placement="bottomRight"
+            trigger={["click"]}
+          >
+            <Button type="text" className="text-gray-500">
+              John Doe
+            </Button>
+          </Dropdown>
         </div>
       </Header>
 
@@ -89,14 +109,14 @@ export default function TimesheetWeekPage() {
               Back to Dashboard
             </Button>
           </div>
-          {(error || localError) && (
+          {/* {(error || localError) && (
             <Alert
               message={error ?? localError}
               type="error"
               showIcon
               className="mb-4"
             />
-          )}
+          )} */}
           <WeekTimesheetPage
             entry={entry}
             loading={!hasLoaded || loading}

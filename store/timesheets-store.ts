@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { message } from "antd";
 import type { TimesheetEntry } from "@/lib/types";
 
 type TimesheetState = {
@@ -47,6 +48,7 @@ export const useTimesheetsStore = create<TimesheetState>((set, get) => ({
         })
       );
       set({ items: [created, ...get().items], loading: false });
+      message.success("Timesheet created successfully");
     } catch (err) {
       set({ error: (err as Error).message, loading: false });
     }
@@ -79,6 +81,7 @@ export const useTimesheetsStore = create<TimesheetState>((set, get) => ({
           loading: false,
         };
       });
+      message.success("Timesheet updated successfully");
     } catch (err) {
       set({ error: (err as Error).message, loading: false });
     }
@@ -94,6 +97,7 @@ export const useTimesheetsStore = create<TimesheetState>((set, get) => ({
         items: get().items.filter((item) => item.id !== id),
         loading: false,
       });
+      message.success("Timesheet deleted successfully");
     } catch (err) {
       set({ error: (err as Error).message, loading: false });
     }

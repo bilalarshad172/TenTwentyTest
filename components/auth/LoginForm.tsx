@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, Form, Input, Button, Typography, Alert } from "antd";
+import { Card, Form, Input, Button, Typography, Alert, message } from "antd";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,6 +25,7 @@ export default function LoginForm() {
     setLoading(false);
 
     if (result?.ok) {
+      message.success("Logged in successfully");
       router.push("/dashboard");
       return;
     }
@@ -41,7 +42,7 @@ export default function LoginForm() {
                  Welcome Back
                 </h1>
                 <Text type="secondary">
-                  Sign in with your account. Demo: `demo@acme.com` / `password123`
+                  Sign in with your account. Demo: `tentwenty@demo.com` / `password123`
                 </Text>
               </div>
 

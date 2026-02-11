@@ -10,6 +10,9 @@ type Props = {
   selectedId?: string | null;
   onSelect: (row: TimesheetRow) => void;
   onAction: (row: TimesheetRow) => void;
+  pageSize?: number;
+  sortBy?: "weekNumber" | "dateRange" | "status";
+  sortOrder?: "asc" | "desc";
 };
 
 const statusColor: Record<TimesheetStatus, string> = {
@@ -38,7 +41,21 @@ export default function TimesheetTable({
   selectedId,
   onSelect,
   onAction,
+  pageSize = 6,
+  sortBy = "weekNumber",
+  sortOrder = "asc",
 }: Props) {
+  const sortedRows = [...rows].sort((a, b) => {
+    const direction = sortOrder === "asc" ? 1 : -1;
+    if (sortBy === "status") {
+      return a.status.localeCompare(b.status) * direction;
+    }
+    if (sortBy === "dateRange") {
+      return a.dateRange.localeCompare(b.dateRange) * direction;
+    }
+    return (a.weekNumber - b.weekNumber) * direction;
+  });
+
   const columns: ColumnsType<TimesheetRow> = [
     {
       title: "Week #",
@@ -82,9 +99,11 @@ export default function TimesheetTable({
     <Table
       rowKey="id"
       columns={columns}
-      dataSource={rows}
+      dataSource={sortedRows}
       loading={loading}
-      pagination={{ pageSize: 6 }}
+      size="small"
+      pagination={{ pageSize }}
+      scroll={{ x: 640 }}
       onRow={(record) => ({
         onClick: () => onSelect(record),
       })}

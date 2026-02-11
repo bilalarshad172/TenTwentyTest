@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const DEMO_EMAIL = "demo@acme.com";
+const DEMO_EMAIL = "tentwenty@demo.com";
 const DEMO_PASSWORD = "password123";
 
 export const authOptions: NextAuthOptions = {
