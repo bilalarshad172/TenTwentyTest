@@ -1,4 +1,285 @@
 [
-  { "id": "t1", "weekNumber": 5, "date": "2026-02-02", "status": "Submitted" },
-  { "id": "t2", "weekNumber": 6, "date": "2026-02-09", "status": "Pending" }
+  {
+    "id": "w1",
+    "weekNumber": 1,
+    "weekStart": "2026-01-05",
+    "days": [
+      {
+        "date": "2026-01-05",
+        "tasks": [
+          {
+            "id": "t1",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-06",
+        "tasks": [
+          {
+            "id": "t2",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-07",
+        "tasks": [
+          {
+            "id": "t3",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-08",
+        "tasks": [
+          {
+            "id": "t4",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-09",
+        "tasks": [
+          {
+            "id": "t5",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "w2",
+    "weekNumber": 2,
+    "weekStart": "2026-01-12",
+    "days": [
+      {
+        "date": "2026-01-12",
+        "tasks": [
+          {
+            "id": "t6",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-13",
+        "tasks": [
+          {
+            "id": "t7",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-14",
+        "tasks": [
+          {
+            "id": "t8",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-15",
+        "tasks": [
+          {
+            "id": "t9",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-16",
+        "tasks": [
+          {
+            "id": "t10",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "w3",
+    "weekNumber": 3,
+    "weekStart": "2026-01-19",
+    "days": [
+      {
+        "date": "2026-01-19",
+        "tasks": [
+          {
+            "id": "t11",
+            "name": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          },
+          {
+            "id": "ae218d56-f9f9-435e-b231-b63100b3654b",
+            "name": "Testing",
+            "description": "Testing",
+            "hours": 3,
+            "project": "Internal",
+            "workType": "Feature"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-20",
+        "tasks": [
+          {
+            "id": "t12",
+            "name": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-21",
+        "tasks": [
+          {
+            "id": "t13",
+            "name": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-22",
+        "tasks": [
+          {
+            "id": "t14",
+            "name": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-23",
+        "tasks": [
+          {
+            "id": "t15",
+            "name": "Homepage Development",
+            "hours": 4,
+            "project": "Project Name"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "w4",
+    "weekNumber": 4,
+    "weekStart": "2026-01-26",
+    "days": [
+      {
+        "date": "2026-01-26",
+        "tasks": [
+          {
+            "id": "t16",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-27",
+        "tasks": [
+          {
+            "id": "t17",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-28",
+        "tasks": [
+          {
+            "id": "t18",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-29",
+        "tasks": [
+          {
+            "id": "t19",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      },
+      {
+        "date": "2026-01-30",
+        "tasks": [
+          {
+            "id": "t20",
+            "name": "Homepage Development",
+            "hours": 8,
+            "project": "Project Name"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "w5",
+    "weekNumber": 5,
+    "weekStart": "2026-02-09",
+    "days": [
+      {
+        "date": "2026-02-09",
+        "tasks": []
+      },
+      {
+        "date": "2026-02-10",
+        "tasks": []
+      },
+      {
+        "date": "2026-02-11",
+        "tasks": []
+      },
+      {
+        "date": "2026-02-12",
+        "tasks": []
+      },
+      {
+        "date": "2026-02-13",
+        "tasks": []
+      }
+    ]
+  }
 ]

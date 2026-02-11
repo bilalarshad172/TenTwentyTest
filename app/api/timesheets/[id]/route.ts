@@ -1,18 +1,24 @@
 import { NextResponse } from "next/server";
-import { deleteTimesheet, updateTimesheet } from "@/lib/timesheets-data";
-import { TimesheetStatus } from "@/lib/types";
+import {
+  deleteTimesheet,
+  getTimesheet,
+  updateTimesheet,
+} from "@/lib/timesheets-data";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   const payload = await request.json();
-  const { weekNumber, date, status } = payload ?? {};
+  const { weekNumber, weekStart, days } = payload ?? {};
 
   if (
     typeof weekNumber !== "number" ||
-    typeof date !== "string" ||
-    !["Pending", "Submitted", "Approved"].includes(status)
+    typeof weekStart !== "string" ||
+    !Array.isArray(days)
   ) {
     return NextResponse.json(
       { message: "Invalid payload" },
@@ -22,8 +28,8 @@ export async function PUT(
 
   const updated = await updateTimesheet(params.id, {
     weekNumber,
-    date,
-    status: status as TimesheetStatus,
+    weekStart,
+    days,
   });
 
   if (!updated) {
@@ -31,6 +37,17 @@ export async function PUT(
   }
 
   return NextResponse.json(updated);
+}
+
+export async function GET(
+  _request: Request,
+  { params }: { params: { id: string } }
+) {
+  const entry = await getTimesheet(params.id);
+  if (!entry) {
+    return NextResponse.json({ message: "Not found" }, { status: 404 });
+  }
+  return NextResponse.json(entry);
 }
 
 export async function DELETE(

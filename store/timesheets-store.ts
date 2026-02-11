@@ -62,11 +62,22 @@ export const useTimesheetsStore = create<TimesheetState>((set, get) => ({
           body: JSON.stringify(data),
         })
       );
-      set({
-        items: get().items.map((item) =>
-          item.id === id ? updated : item
-        ),
-        loading: false,
+      set((state) => {
+        const exists = state.items.some((item) => item.id === updated.id);
+        const withoutDuplicates = state.items.filter(
+          (item) =>
+            item.id !== updated.id &&
+            !(
+              item.weekNumber === updated.weekNumber &&
+              item.weekStart === updated.weekStart
+            )
+        );
+        return {
+          items: exists
+            ? [updated, ...withoutDuplicates]
+            : [updated, ...withoutDuplicates],
+          loading: false,
+        };
       });
     } catch (err) {
       set({ error: (err as Error).message, loading: false });

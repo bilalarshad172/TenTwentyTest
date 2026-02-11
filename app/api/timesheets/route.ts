@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { createTimesheet, listTimesheets } from "@/lib/timesheets-data";
-import { TimesheetStatus } from "@/lib/types";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const entries = await listTimesheets();
@@ -9,12 +11,12 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const payload = await request.json();
-  const { weekNumber, date, status } = payload ?? {};
+  const { weekNumber, weekStart, days } = payload ?? {};
 
   if (
     typeof weekNumber !== "number" ||
-    typeof date !== "string" ||
-    !["Pending", "Submitted", "Approved"].includes(status)
+    typeof weekStart !== "string" ||
+    !Array.isArray(days)
   ) {
     return NextResponse.json(
       { message: "Invalid payload" },
@@ -24,8 +26,8 @@ export async function POST(request: Request) {
 
   const entry = await createTimesheet({
     weekNumber,
-    date,
-    status: status as TimesheetStatus,
+    weekStart,
+    days,
   });
 
   return NextResponse.json(entry, { status: 201 });

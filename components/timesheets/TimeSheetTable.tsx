@@ -1,29 +1,45 @@
 "use client";
 
-import { Table, Tag, Space, Button, Popconfirm } from "antd";
+import { Table, Tag, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import type { TimesheetEntry, TimesheetStatus } from "@/lib/types";
+import type { TimesheetStatus } from "@/lib/types";
 
 type Props = {
-  items: TimesheetEntry[];
+  rows: TimesheetRow[];
   loading: boolean;
-  onEdit: (entry: TimesheetEntry) => void;
-  onDelete: (id: string) => void;
+  selectedId?: string | null;
+  onSelect: (row: TimesheetRow) => void;
+  onAction: (row: TimesheetRow) => void;
 };
 
 const statusColor: Record<TimesheetStatus, string> = {
-  Pending: "gold",
-  Submitted: "blue",
-  Approved: "green",
+  Missing: "magenta",
+  Incomplete: "gold",
+  Complete: "green",
+};
+
+type TimesheetRow = {
+  id: string;
+  weekNumber: number;
+  dateRange: string;
+  status: TimesheetStatus;
+  totalHours: number;
+};
+
+const actionLabel: Record<TimesheetStatus, string> = {
+  Missing: "Create",
+  Incomplete: "Update",
+  Complete: "View",
 };
 
 export default function TimesheetTable({
-  items,
+  rows,
   loading,
-  onEdit,
-  onDelete,
+  selectedId,
+  onSelect,
+  onAction,
 }: Props) {
-  const columns: ColumnsType<TimesheetEntry> = [
+  const columns: ColumnsType<TimesheetRow> = [
     {
       title: "Week #",
       dataIndex: "weekNumber",
@@ -32,9 +48,9 @@ export default function TimesheetTable({
     },
     {
       title: "Date",
-      dataIndex: "date",
-      key: "date",
-      width: 160,
+      dataIndex: "dateRange",
+      key: "dateRange",
+      width: 220,
     },
     {
       title: "Status",
@@ -48,19 +64,16 @@ export default function TimesheetTable({
       title: "Actions",
       key: "actions",
       render: (_, record) => (
-        <Space>
-          <Button size="small" onClick={() => onEdit(record)}>
-            Edit
-          </Button>
-          <Popconfirm
-            title="Delete timesheet?"
-            onConfirm={() => onDelete(record.id)}
-          >
-            <Button size="small" danger>
-              Delete
-            </Button>
-          </Popconfirm>
-        </Space>
+        <Button
+          type="link"
+          size="small"
+          onClick={(event) => {
+            event.stopPropagation();
+            onAction(record);
+          }}
+        >
+          {actionLabel[record.status]}
+        </Button>
       ),
     },
   ];
@@ -69,9 +82,15 @@ export default function TimesheetTable({
     <Table
       rowKey="id"
       columns={columns}
-      dataSource={items}
+      dataSource={rows}
       loading={loading}
       pagination={{ pageSize: 6 }}
+      onRow={(record) => ({
+        onClick: () => onSelect(record),
+      })}
+      rowClassName={(record) =>
+        record.id === selectedId ? "bg-blue-50" : ""
+      }
     />
   );
 }
